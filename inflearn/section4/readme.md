@@ -7,4 +7,4 @@
 - 연결되어 있으면 1이라고 표시해주고, 서로 (양방향) 연결되어 있으면 다시 2로 바꿨다.
 - 그럼 한 방향으로 연결된 애들만 남는데 그 인덱스를 출력하면 끝~
 
-![image](https://user-images.githubusercontent.com/60209518/124311350-8ce8fc80-dba8-11eb-8793-bcb4995b0eff.png)
+<img src="https://user-images.githubusercontent.com/60209518/124311350-8ce8fc80-dba8-11eb-8793-bcb4995b0eff.png" width="60%">
