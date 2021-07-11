@@ -67,3 +67,41 @@ function solution(A, K) {
   - `slice(n, k)` : 인덱스 n부터 k - 1까지 자름
   - `slice(n, -k)` : 인덱스 n부터 뒤에서부터 센 인덱스 k까지 자름
     - `[1, 2, 3, 4, 5].slice(2, -1);` 은 `[3, 4]`
+
+<br>
+
+## 🍿 OddOccurrencesInArray
+
+(21.07.11) 실패 - 시간초과
+
+### 걸린 시간
+
+- 15분
+
+### 풀이 방법
+
+- for문 안에 filter를 사용했더니 `O(N²)`이 되어서 시간초과..😭
+- 하지만 다른 방법이 떠오르지 않는다.
+- 배열 이용해서 json parser 했듯이 푸시, 팝 해줘야 하나? 그럼 다음 숫자가 배열에 있는 숫자랑 다를 때 어떡하지 이 생각을 했었는데 객체를 활용하면 되는 것이었다.
+
+### 다른 풀이
+
+```js
+function solution(A) {
+  const totalCounter = A.reduce((counter, num) => {
+    counter[num] = counter[num] ? counter[num] + 1 : 1;
+    return counter;
+  }, {});
+  for (key in totalCounter) {
+    if (totalCounter[key] % 2 === 1) {
+      return Number(key);
+    }
+  }
+}
+```
+
+- reduce를 이용하여 배열에 있는 숫자들의 카운트를 value로 가지는 객체 생성
+- 그 객체를 for문으로 돌면서 value가 홀수인 것을 리턴
+- `O(N)` 또는 `O(NlogN)` (for문에서 홀수를 일찍 만나면 for문이 일찍 종료되기 때문)
+- reduce를 이렇게도 쓸 수 있구나!
+- 꼭 reduce가 아니어도, A를 순회하면서 객체에 값이 없으면 새로 set하고 있으면 delete해주면 된다. 이렇게 하면 객체는 property를 딱 하나만 갖게 되는데 그걸 반환하면 된다.
