@@ -105,3 +105,27 @@ function solution(A) {
 - `O(N)` 또는 `O(NlogN)` (for문에서 홀수를 일찍 만나면 for문이 일찍 종료되기 때문)
 - reduce를 이렇게도 쓸 수 있구나!
 - 꼭 reduce가 아니어도, A를 순회하면서 객체에 값이 없으면 새로 set하고 있으면 delete해주면 된다. 이렇게 하면 객체는 property를 딱 하나만 갖게 되는데 그걸 반환하면 된다.
+
+<br>
+
+## 🍿 PermMissingElem
+
+(21.07.12)
+
+### 풀이 방법
+
+- 예외 케이스는 생각 못하고 for문으로 중간 값들 중 빠진 값이 있는지 체크했다.
+- 제출하니 반만 맞은걸 보고... 결과 페이지에 나온 예외 케이스를 대충 if문 넣어서 처리
+- 다양한 케이스를 생각해야 하는 게 귀찮아서 잘 안하려고 하게 된다. 이러면 안돼~~
+
+### 다른 풀이
+
+- 합 구하는 공식과 reduce를 사용해서 간결하게 풀어낸 풀이를 발견
+
+```js
+function solution(A) {
+  const expectedSum = ((A.length + 1) * (A.length + 2)) / 2;
+  const realSum = A.reduce((a, b) => a + b, 0);
+  return expectedSum - realSum;
+}
+```
