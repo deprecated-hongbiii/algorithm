@@ -3,12 +3,15 @@ function solution(A) {
   // A의 길이는 2부터 10만까지
   // 최소 차이를 구하려면 다~ 구해봐야 함!
   const diffs = [];
-  for (let p = 1; p <= A.length - 1; p++) {
-    const part1 = A.slice(0, p);
-    const part2 = A.slice(p, A.length);
-    const sum1 = part1.reduce((prev, sum) => prev + sum, 0);
-    const sum2 = part2.reduce((prev, sum) => prev + sum, 0);
+  let sum1 = A[0];
+  let sum2 = A.reduce((prev, curr) => prev + curr) - sum1;
+  diffs.push(Math.abs(sum1 - sum2));
+
+  for (let i = 1; i <= A.length - 2; i++) {
+    sum1 += A[i];
+    sum2 -= A[i];
     diffs.push(Math.abs(sum1 - sum2));
   }
+
   return Math.min(...diffs);
 }
