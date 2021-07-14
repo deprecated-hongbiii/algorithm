@@ -70,6 +70,31 @@ function solution(A, K) {
 
 <br>
 
+## 🍿 FrogRiverOne
+
+(21.07.14)
+
+### 걸린 시간
+
+- 30분 [🔗 결과](https://app.codility.com/demo/results/trainingZ2DJ4M-VFE/)
+- 그 뒤로도 한 30분동안 두 번 품 [🔗 결과](https://app.codility.com/demo/results/trainingCGZANW-XY4/)
+
+### 풀이 방법
+
+- 처음 풀이 때는 `O(N²)` 인 걸 알면서도 다른 방법이 생각나지 않아서 그냥 풂
+- 시간 초과보다 그냥 풀이가 틀렸음 (18점)
+  - for문의 범위가 틀린 것이었다. A 배열을 돌아야 하는데 왜 1 ~ X+1을 쓰고 난리.. 범위 설정할 때 헷갈리는 경우가 많다.. 🤕
+- for문 범위를 0 ~ A.length로 고침
+  - 정답은 맞았으나 시간초과. 역시 뭔가 곧이곧대로 풀면 바로 `O(N²)` 이다.
+- Set을 쓰면 된다는 힌트를 얻어 풀이
+  - `O(N)` 으로 해결
+
+### 다른 풀이
+
+- Set을 사용해서 푸는 게 제일 좋은 방법인 듯
+
+<br>
+
 ## 🍿 OddOccurrencesInArray
 
 (21.07.11) 실패 - 시간초과
@@ -87,7 +112,7 @@ function solution(A, K) {
 ### 다른 풀이
 
 ```js
-function solution(A) {
+function solution(A) {****
   const totalCounter = A.reduce((counter, num) => {
     counter[num] = counter[num] ? counter[num] + 1 : 1;
     return counter;
