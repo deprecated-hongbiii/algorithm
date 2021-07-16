@@ -133,6 +133,25 @@ function solution(A) {****
 
 <br>
 
+## 🍿 PermCheck
+
+(21.07.16)
+
+### 걸린 시간
+
+- 5분 [🔗 결과](https://app.codility.com/demo/results/trainingYCJVSP-NKW/)
+
+### 풀이 방법
+
+- 1~N 범위라고 되어 있어서 정렬을 한 뒤 인덱스와 비교해보면 될 것이라 판단했다.
+- 5분정도만에 급하게 푸느라 `sort` 에 콜백함수 전달을 안 해서 오답..
+- 아무리 급해도 기본적인 인수는 절대 빼먹지 말자. 🤨
+
+### 다른 풀이
+
+- `A[0] !== 1` 인 경우에 early return 하기!!
+- 차이를 계산하는 방법도 있다. - `A[i + 1] - A[i]` 이 `1` 인지 체크
+
 ## 🍿 PermMissingElem
 
 (21.07.12)
