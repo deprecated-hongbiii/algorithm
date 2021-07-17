@@ -102,13 +102,64 @@ function solution(A, K) {
 | Try |   Date   | Time spent | Correctness | Performance |                                 Code                                 |
 | :-: | :------: | :--------: | :---------: | :---------: | :------------------------------------------------------------------: |
 |  1  | 21-07-17 |    19분    |    100%     |     60%     | [🔗 결과](https://app.codility.com/demo/results/training9GMFM8-AVG/) |
+|  2  | 21-07-17 |     -      |    100%     |     60%     | [🔗 결과](https://app.codility.com/demo/results/trainingC4CGKG-9XD/) |
 
 ### 풀이 방법
 
 #### 1st try
 
+- 문제 이해하는 데에 좀 오래 걸림
 - 문제에 나온 곧이곧대로 푼 듯
 - Max count를 찾아서 세팅하는 과정에서 Math.max를 사용하는 바람에 `O(N²)` 이 됐나?
+
+#### 2nd try
+
+- max 값 구하는 부분만 살짝 바꿨는데 아무래도 `new Array(N).fill` 부분도 시간 복잡도를 증가시키는 원인인 것 같다. 어떻게 풀어야 할 지 모르겠어!!!
+
+### 돌아보기
+
+- 다른 사람이 푼 걸 봐도, 설명을 들어도 풀이 방법이 잘 이해가 안 됐던 문제. 내가 쓴 코드가 시간복잡도가 크다는 건 알겠지만 어떻게 다르게 풀어야 할 지 전혀 감이 안 왔다. 새로운 방법들을 하나씩 익혀야겠다..
+
+### 다른 풀이
+
+<details>
+  <summary>Code</summary>
+  <div markdown="1">
+
+```js
+function solution(N, A) {
+  const counter = new Array(N).fill(0);
+  let maxCounter = 0;
+  let tmpMaxCounter = 0;
+
+  A.forEach((item) => {
+    let idx = item - 1;
+    if (item <= N) {
+      counter[idx] = Math.max(counter[idx], maxCounter);
+      counter[idx] += 1;
+      tmpMaxCounter = Math.max(counter[idx], tmpMaxCounter);
+    } else {
+      maxCounter = tmpMaxCounter;
+    }
+  });
+
+  counter.forEach((item, idx, arr) => {
+    arr[idx] = Math.max(item, maxCounter);
+  });
+
+  return counter;
+}
+```
+
+  </div>
+  </details>
+  
+- Max count를 memorize해두고 마지막에 한 번만 적용해야 한다고 한다.
+- 이 경우 중간에 max count로 변경되면 결과값이 달라지기 때문에 max count와 memorized count를 분리해야 함 👉 이 부분이 잘 이해가 안 됐음
+- 홍선생한테 풀이 방법 물어봤다.
+  - 현재 제일 큰 값과 N+1이 들어왔을 때 업데이트 해야할 값을 따로 저장
+  - 업데이트 해야할 값보다 작으면 업데이트 해야할 값 + 1 이 되는 것..
+  - 이렇게 쭉 하다가 마지막에 모든 배열을 한번씩 보면서 업데이트 쳐줘야 할 값보다 작은 게 있으면 그걸 업뎃값으로 변경해주면 끝
 
 <br>
 
