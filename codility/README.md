@@ -163,6 +163,16 @@ function solution(N, A) {
 
 <br>
 
+## 🍿 MissingInteger
+
+### 결과
+
+| Try |   Date   | Time spent | Correctness | Performance |                                 Code                                 |
+| :-: | :------: | :--------: | :---------: | :---------: | :------------------------------------------------------------------: |
+|  1  | 21-07-18 |    13분    |     20%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/trainingKDA98W-FPN/) |
+
+<br>
+
 ## 🍿 OddOccurrencesInArray
 
 (21.07.11) 실패 - 시간초과
