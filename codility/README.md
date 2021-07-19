@@ -170,7 +170,40 @@ function solution(N, A) {
 | Try |   Date   | Time spent | Correctness | Performance |                                 Code                                 |
 | :-: | :------: | :--------: | :---------: | :---------: | :------------------------------------------------------------------: |
 |  1  | 21-07-18 |    13분    |     20%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/trainingKDA98W-FPN/) |
-|  2  | 21-07-19 |     -      |     80%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/training34NAUT-TWW/) |
+|  2  | 21-07-18 |     -      |     80%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/training34NAUT-TWW/) |
+|  3  | 21-07-19 |     -      |    100%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/trainingAAZVRV-CNA/) |
+
+### 풀이 방법
+
+- 어려운 문제는 아닌데 다양한 상황을 다 고려해야 하는 점이 포인트인 듯..
+- 그 상황들을 내가 생각해낸 게 아니라 결과 페이지의 테스트케이스들을 보고 조건을 하나씩 추가함
+
+### 다른 풀이
+
+- 다양한 상황을 다 아우르는 풀이 👀
+- min 값을 1로 시작해서, 배열 안에 같은 값이 있으면 1씩 올려주는 방법
+
+<details>
+  <summary>Code</summary>
+  <div markdown="1">
+
+```js
+function solution(A) {
+  A.sort((a, b) => a - b);
+
+  let min = 1;
+
+  for (let i in A) {
+    if (A[i] === min) {
+      min++;
+    }
+  }
+  return min;
+}
+```
+
+  </div>
+</details>
 
 <br>
 

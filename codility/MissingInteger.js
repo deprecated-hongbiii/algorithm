@@ -8,6 +8,9 @@ function solution(A) {
     if (sorted[i] >= 0 && sorted[i + 1] - sorted[i] > 1) {
       return sorted[i] + 1;
     }
+    if (sorted[i] < 0 && sorted[i + 1] > 1) {
+      return 1;
+    }
   }
   return sorted[A.length - 1] + 1;
 }
