@@ -170,6 +170,7 @@ function solution(N, A) {
 | Try |   Date   | Time spent | Correctness | Performance |                                 Code                                 |
 | :-: | :------: | :--------: | :---------: | :---------: | :------------------------------------------------------------------: |
 |  1  | 21-07-18 |    13분    |     20%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/trainingKDA98W-FPN/) |
+|  2  | 21-07-19 |     -      |     80%     |    100%     | [🔗 결과](https://app.codility.com/demo/results/training34NAUT-TWW/) |
 
 <br>
 
