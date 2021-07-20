@@ -37,3 +37,33 @@ function solution(n) {
   return answer;
 }
 ```
+
+<br>
+
+## 3. 이진트리순회 (DFS)
+
+(21.07.20)
+
+- DFS 뭘 모르겠으면 일단 `if ~ else` 문을 쓰라는 게 선생님의 팁! 이렇게라도 하세요!!!!!! 라고 하심
+- `if` 에는 종료 조건 (return) 을 넣어주고, `else` 에는 재귀함수 호출
+- 트리 구조에서는 두 갈래로 나가야 하니까 `else` 문에 두 번 호출을 해주면 되는 것이다.
+- 내가 봐왔던 트리 구조는 class로 정의된 node 구조여서 어떻게 하라는 건지 몰랐다. 주어진 그림에서 규칙을 찾아보면 왼쪽 자식 노드는 `부모노드 값 * 2`, 오른쪽 자식 노드는 `부모노드 값 * 2 + 1` 이라는 점을 이용하여 출력하라는 것이었다.
+
+### 선생님 풀이
+
+```js
+// 1부터 7까지
+function solution(v) {
+  function DFS(v) {
+    if (v > 7) return;
+    else {
+      console.log(v); // console.log의 위치를 옮기면 preorder, inorder, postorder 구현 가능
+      DFS(v * 2);
+      DFS(v * 2 + 1);
+    }
+  }
+  DFS(v);
+}
+
+solution(1);
+```
