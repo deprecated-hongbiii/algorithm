@@ -31,6 +31,39 @@ function solution(N) {
 
 <br>
 
+## 🍿 CountDiv
+
+| Try |   Date   | Time spent | Correctness | Performance |                                 Code                                 |
+| :-: | :------: | :--------: | :---------: | :---------: | :------------------------------------------------------------------: |
+|  1  | 21-07-28 |    5분     |    100%     |     0%      | 🔗 [결과](https://app.codility.com/demo/results/trainingX57P54-7BE/) |
+|  2  | 21-07-28 |    13분    |    100%     |    100%     | 🔗 [결과](https://app.codility.com/demo/results/trainingNRPT9J-CGE/) |
+
+### 1st try
+
+- 단순히 A부터 B까지 for문 돌면서 구하면 `O(N)` 이라 괜찮을 거라고 생각함 (정확히는 `O(B-A)`)
+- 하지만.. 입력의 범위가 20억까지..?! 더 효율적인 방법이 필요... 효율성 0점이었음
+
+### 2nd try
+
+- A, B 사이 구간을 적절히 나눠서 한 구간에서 구한 후 곱하기 해야 하나..? - 뭔가 애매했음
+- 문득 1~B 구간의 K의 배수 개수에서 1~A 구간의 K의 배수 개수를 빼면 되겠다는 생각이 듦
+- 이 때, A가 K의 배수인지 여부에 따라 1 차이가 나서 처리해줬다.
+- `O(N)`으로 풀이 가능!
+
+### 다른 풀이
+
+```js
+function solution(A, B, K) {
+  let cnt = parseInt(B / K) - parseInt(A / K);
+  if (A % K === 0) cnt += 1;
+  return cnt;
+}
+```
+
+- 나랑 로직은 똑같지만 코드가 좀 더 깔끔해서 첨부
+
+<br>
+
 ## 🍿 CyclicRotation
 
 (21.07.11)

@@ -1,7 +1,8 @@
 function solution(A, B, K) {
-  let count = 0;
-  for (let i = A; i <= B; i++) {
-    if (i % K === 0) count++;
+  if (A % K === 0) {
+    if (A === B) return 1;
+    else return Math.floor(B / K) - Math.floor(A / K) + 1;
   }
-  return count;
+
+  return Math.floor(B / K) - Math.floor(A / K);
 }
