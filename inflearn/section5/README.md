@@ -129,3 +129,35 @@ function solution2(m, arr) {
   return answer;
 }
 ```
+
+<br>
+
+## 5. 최대 매출
+
+(21.07.28)
+
+- 문제를 보자마자 이게 슬라이딩 윈도우구나! 감이 왔고 로직도 잘 짰다.
+- 근데 코드로 쓸 때 삽질을........
+- left 빼주는 걸 인덱스 0부터 시작해야 하는데 1부터 넣었다던가,
+- max 변수를 만들어놓지 않았다던가
+- 이런 사소한 (하지만 치명적인) 실수들을 했다.
+- 간단하다고 그냥 냅다 풀지 말고 메모를 해서 정리를 해보는 습관을 가져야겠다.
+
+### 선생님 풀이
+
+```js
+function solution(k, arr) {
+  let answer,
+    sum = 0;
+  for (let i = 0; i < k; i++) sum += arr[i];
+  answer = sum;
+  for (let i = k; i < arr.length; i++) {
+    sum += arr[i] - arr[i - k];
+    answer = Math.max(answer, sum);
+  }
+  return answer;
+}
+
+let a = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
+console.log(solution(3, a));
+```
