@@ -161,3 +161,45 @@ function solution(k, arr) {
 let a = [12, 15, 11, 20, 25, 10, 20, 19, 13, 15];
 console.log(solution(3, a));
 ```
+
+<br>
+
+## 6. 학급 회장
+
+(21.07.29)
+
+- str을 for문으로 돌면서, 객체를 이용해서 카운트를 올려줌
+- 카운트가 제일 많은 사람을 알기 위해 객체의 value 중 최댓값을 가지는 key를 알아야 했음
+- 그래서 배열로 바꾸고 sort 함
+
+### 알아둘 점
+
+- sort 메서드는 `O(NlogN)` 이기 때문에 입력이 커졌을 때 `O(N)` 보다 더 오래 걸림
+- 최댓값 구할 때는 그냥 for문 한 번 더 돌면서 max를 바꿔나가는 식으로 해야 함 (Math.max 사용할 수 있다면 쓰고!)
+- 디스트럭쳐링 방식이 좀 신박했는데 어떻게 ([, a], [, b]) 이런 표현이 가능한지 궁금했다. 이건 만약 `[key, value]` 라는 배열이 있다면, 쉼표 앞의 key는 변수에 할당하지 않고 쉼표 뒤의 value 자리에 있는 것만 a 변수에 할당하겠다는 뜻
+- Map을 배열로 변환하지 않아도 for...of 문에서 `[key, value]` 이렇게 디스트럭쳐링으로 뽑아낼 수 있다는 걸 알게 됐다. Map이 이터러블이어서 그런가보다.
+- A Map object iterates its elements in insertion order — a for...of loop returns an array of [key, value] for each iteration.
+
+### 선생님 풀이
+
+- Map을 사용
+- 이 문제에서는 굳이 Map을 써야 하나 생각이 듦. 객체에는 그냥 넣으면 되는데 Map 쓰려면 has로 체크해서 없으면 set을 해줘야 하는 과정이 추가적으로 필요해서..
+
+```js
+function solution(s) {
+  let answer;
+  let sH = new Map();
+  for (let x of s) {
+    if (sH.has(x)) sH.set(x, sH.get(x) + 1);
+    else sH.set(x, 1);
+  }
+  let max = Number.MIN_SAFE_INTEGER;
+  for (let [key, val] of sH) {
+    if (val > max) {
+      max = val;
+      answer = key;
+    }
+  }
+  return answer;
+}
+```
