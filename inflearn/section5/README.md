@@ -203,3 +203,38 @@ function solution(s) {
   return answer;
 }
 ```
+
+<br>
+
+## 7. 아나그램
+
+- 별 다른 고민 없이 sort한 후 원소 하나씩 비교
+- `O(NlogN)` 이니까 괜찮겠지 라는 생각을 했음. 어제 공부해놓고도!!!!
+- 해쉬 방식(Map 또는 객체?)을 이용하면 O(N)으로 줄일 수 있다.
+
+### 선생님 풀이
+
+- Map을 사용해서 `str1` 각 원소를 카운트하고, `str2` 는 `str1` 로 생성된 Map과 비교
+- Map에 없으면 당연히 아나그램이 아니고,
+- Map에 있으면 개수가 동일한지 확인하기 위해 count에서 하나씩 빼줌
+- 이 때 Map의 count가 0이 된 것이 있다면 개수가 맞지 않으므로 아나그램이 아님
+
+```js
+function solution(str1, str2) {
+  let answer = 'YES';
+  let sH = new Map();
+  for (let x of str1) {
+    if (sH.has(x)) sH.set(x, sH.get(x) + 1);
+    else sH.set(x, 1);
+  }
+  for (let x of str2) {
+    if (!sH.has(x) || sH.get(x) == 0) return 'NO';
+    sH.set(x, sH.get(x) - 1);
+  }
+  return answer;
+}
+
+let a = 'AbaAeCe';
+let b = 'baeeACA';
+console.log(solution(a, b));
+```
