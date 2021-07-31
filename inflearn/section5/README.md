@@ -208,6 +208,8 @@ function solution(s) {
 
 ## 7. 아나그램
 
+(21.07.30)
+
 - 별 다른 고민 없이 sort한 후 원소 하나씩 비교
 - `O(NlogN)` 이니까 괜찮겠지 라는 생각을 했음. 어제 공부해놓고도!!!!
 - 해쉬 방식(Map 또는 객체?)을 이용하면 O(N)으로 줄일 수 있다.
@@ -236,5 +238,60 @@ function solution(str1, str2) {
 
 let a = 'AbaAeCe';
 let b = 'baeeACA';
+console.log(solution(a, b));
+```
+
+<br>
+
+## 8. 모든 아나그램 찾기
+
+(21.07.31)
+
+- solution 함수의 for문으로 슬라이딩 윈도우로 동작!
+- 돌면서 두 문자열이 아나그램인지 확인 - `isAnagram` 함수
+- isAnagram 함수는 `str1`을 우선 Map에 세팅해놓고, `str2`의 글자 하나하나를 `str1`로 만든 Map과 비교해보는 로직
+- solution 함수의 for문에서 isAnagram의 for문이 돌기 때문에 `O(N²)` 인 것 같다.. (확실하지 않음)
+
+### 선생님 풀이
+
+- 비교 대상이 되는 문자열의 Map과 부분 문자열의 Map을 비교하는 방식
+- 부분 문자열의 Map에는 프로퍼티를 추가, 수정, 삭제하며 비교한다.
+
+```js
+function compareMaps(map1, map2) {
+  if (map1.size !== map2.size) return false;
+  for (let [key, val] of map1) {
+    if (!map2.has(key) || map2.get(key) !== val) return false;
+  }
+  return true;
+}
+
+function solution(s, t) {
+  let answer = 0;
+  let tH = new Map();
+  let sH = new Map();
+  for (let x of t) {
+    if (tH.has(x)) tH.set(x, tH.get(x) + 1);
+    else tH.set(x, 1);
+  }
+  let len = t.length - 1;
+  for (let i = 0; i < len; i++) {
+    if (sH.has(s[i])) sH.set(s[i], sH.get(s[i]) + 1);
+    else sH.set(s[i], 1);
+  }
+  let lt = 0;
+  for (let rt = len; rt < s.length; rt++) {
+    if (sH.has(s[rt])) sH.set(s[rt], sH.get(s[rt]) + 1);
+    else sH.set(s[rt], 1);
+    if (compareMaps(sH, tH)) answer++;
+    sH.set(s[lt], sH.get(s[lt]) - 1);
+    if (sH.get(s[lt]) === 0) sH.delete(s[lt]);
+    lt++;
+  }
+  return answer;
+}
+
+let a = 'bacaAacba';
+let b = 'abc';
 console.log(solution(a, b));
 ```
