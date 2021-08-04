@@ -30,3 +30,41 @@
   - 0이 아닌 값이 나오면,
   - stack의 마지막 원소를 확인, 값이 같으면 stack에서 pop한 후 count += 2, board의 해당 값 0으로 바꾸기
   - 값이 다르면 stack에 push한 후 board의 해당 값 0으로 바꾸기
+
+<br>
+
+## 4. 후위식 연산
+
+(21.08.04)
+
+- 후위식 연산이라는 걸 처음 알게 돼서 어떻게 풀어야 할지 살짝 고민하다가 이 챕터가 스택, 큐니까.. 스택으로 푸는 방법이 문득 떠올랐다. 그리고 맞았다.
+- 연산자를 배열에 넣어두고 `includes` 메서드를 이용했고, 연산자가 string이기 때문에 함수를 하나 만들어서 switch문으로 분기해서 연산 결과를 리턴해주도록 했다.
+
+### 선생님 풀이
+
+- 선생님은 연산자인지 판단할 때 `isNaN` 을 사용했다.
+- 그런데 찾아보니, `전역 isNaN` 의 경우는 `'+'` 와 같은 것들이 true가 나오는데, ES6에서 추가된 `Number.isNaN` 은 더 엄격해서 진짜 `NaN` 일 때만 true가 나온다고 한다.
+- 따라서 개인적인 의견으로는 `isNaN` 을 사용하는 게 별로 직관적인 방법은 아닌 것 같다.
+
+```js
+function solution(s) {
+  let answer;
+  let stack = [];
+  for (let x of s) {
+    if (!isNaN(x)) stack.push(Number(x));
+    else {
+      let rt = stack.pop();
+      let lt = stack.pop();
+      if (x === '+') stack.push(lt + rt);
+      else if (x === '-') stack.push(lt - rt);
+      else if (x === '*') stack.push(lt * rt);
+      else if (x === '/') stack.push(lt / rt);
+    }
+  }
+  answer = stack[0];
+  return answer;
+}
+
+let str = '352+*9-';
+console.log(solution(str));
+```
