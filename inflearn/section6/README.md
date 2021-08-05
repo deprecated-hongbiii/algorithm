@@ -68,3 +68,37 @@ function solution(s) {
 let str = '352+*9-';
 console.log(solution(str));
 ```
+
+<br>
+
+## 5. 쇠막대기
+
+(21.08.05)
+
+- 열린 괄호 개수 === 겹쳐진 막대기의 개수, `)` 바로 직전에 `(` 가 나오면 레이저 라는 것 까지는 알았는데 레이저와 레이저 사이에서 끝나버린 막대기를 어떻게 처리해야 할 지 모르겠어서 헤맴
+- `)` 가 레이저의 닫힌 괄호인지, 막대기가 끝났다는 닫힌 괄호인지 판단해야 한다. (직전의 원소 확인)
+- 막대기의 끝이라면 쪼개진 막대기니까 총 개수에 +1 해주면 되는 간단한 문제였음
+
+### 선생님 풀이
+
+- 나는 pop을 밑에 주석 부분에 하고 stack.length - 1 을 더해줬는데 pop을 위에서 하면 되는 것이었다.
+
+```js
+function solution(s) {
+  let answer = 0;
+  let stack = [];
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === '(') stack.push('(');
+    else {
+      stack.pop();
+      if (s[i - 1] === '(') answer += stack.length;
+      else answer++;
+      //stack.pop(); 이 위치에 하면 레이저까지 카운팅한다.
+    }
+  }
+  return answer;
+}
+
+let a = '()(((()())(())()))(())';
+console.log(solution(a));
+```
