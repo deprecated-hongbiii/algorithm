@@ -53,3 +53,43 @@ var helper = function (root, res) {
 </details>
 
 <br>
+
+## 1047. Remove All Adjacent Duplicates In String
+
+| Try |   Date   | Time spent | Correctness | Performance |                             Code                              |
+| :-: | :------: | :--------: | :---------: | :---------: | :-----------------------------------------------------------: |
+|  1  | 21-08-05 |     -      |    100%     |      -      | 🔗 [결과](https://leetcode.com/submissions/detail/533779523/) |
+
+<br>
+
+## 1209. Remove All Adjacent Duplicates in String II
+
+| Try |   Date   | Time spent | Correctness |     Performance     |                             Code                              |
+| :-: | :------: | :--------: | :---------: | :-----------------: | :-----------------------------------------------------------: |
+|  1  | 21-08-05 |     -      |   18 / 20   | Time Limit Exceeded | 🔗 [결과](https://leetcode.com/submissions/detail/533798437/) |
+|  2  | 21-08-06 |     -      |   20 / 20   |  faster than 7.73%  | 🔗 [결과](https://leetcode.com/submissions/detail/534007180/) |
+|  3  | 21-08-06 |     -      |   20 / 20   | faster than 85.87%  | 🔗 [결과](https://leetcode.com/submissions/detail/534012407/) |
+
+### 1st try
+
+- k개가 연속되었는지 확인을 for문 안에 또 for문을 만들어서 했다. 시간복잡도 `O(N*K)`
+- 이렇게 하는 게 아닌 것 같았는데 더 좋은 방법이 안 떠올라서.. 😭
+- 역시나 시간초과가 나와버렸다.
+
+### 2nd try
+
+- `O(N)` 으로 푸는 방법이 생각나지 않아서 [코없프](https://www.youtube.com/watch?v=EU7ISz76xjw&list=PLDV-cCQnUlIYQOb8_n-d-VPhl_X6cECjg&index=4) 영상을 봤다.
+- 나름 영상에 나온 방식대로 잘 풀었다고 생각했는데 하위 7.73%...... 🤔
+- 스택을 하다 더 만들어서 연속 숫자의 개수를 카운팅하는 방식이다.
+- k개 연속된 숫자가 나온다면 반복문 돌며 pop해주는 대신 slice 메서드를 이용해 잘라냈는데 이게 문제인 것 같다.
+
+### 3rd try
+
+- slice 메서드를 없애고 for문으로 스택에서 k-1개의 원소를 pop하는 방식으로 풀었더니 훨씬 빨라졌다.
+- ECMA 스펙에는 시간복잡도에 대한 내용은 나와있지 않지만 대충 추측해봤을 때 얕은 복사하여 반환하기 때문에 O(N)의 시간복잡도를 갖는다.
+- 중간에 인덱스로 자른다고 해도.. 그 길이만큼 새로운 배열을 만들어내기 때문에 자르는 길이를 K라고 한다면 O(K)일 것이다.
+- 사실상 for문이랑 시간복잡도는 같아 보이는데.. 무슨 차이일까?
+- 네이스 왈 데이터가 어떻게 들어오냐에 따라, 그리고 복사냐(slice) 아니냐(for문) 차이에 따라 성능 차이가 나는 것 같다고 한다.
+- 그렇다면 원본 배열을 직접 변경하는 splice 메서드를 쓴다면 어떨까??!
+- 결과는 for문과 비슷하다! 런타임도 메모리도 모두 비슷!
+- 결론! 원본 배열을 복사해서 반환하는 메서드는 시간복잡도가 더 증가한다.

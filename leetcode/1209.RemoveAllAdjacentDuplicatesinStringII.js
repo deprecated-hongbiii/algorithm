@@ -13,8 +13,10 @@ var removeDuplicates = function (s, k) {
       countStack[countStack.length - 1]++;
       if (countStack[countStack.length - 1] < k) stack.push(el);
       else {
-        stack = stack.slice(0, -(k - 1));
         countStack.pop();
+        for (let i = 1; i < k; i++) {
+          stack.pop();
+        }
       }
     } else {
       stack.push(el);
