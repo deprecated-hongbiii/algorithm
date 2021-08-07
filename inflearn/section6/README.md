@@ -102,3 +102,30 @@ function solution(s) {
 let a = '()(((()())(())()))(())';
 console.log(solution(a));
 ```
+
+<br>
+
+## 6. 공주 구하기
+
+- 어떻게 풀어야 할 지 감이 안 왔다. 처음에는 인덱스로 filter 할까 했지만, 탈락한 사람의 다음 사람부터 다시 시작되기 때문에 인덱스로는 거를 수가 없었다.
+- 섹션의 주제가 스택, 큐인데 뭔가 스택은 아닌 것 같아서 큐로 생각해보려 했지만 잘 생각이 안 났다.
+- 문득 맨 앞에 사람을 뽑아서(shift) 맨 뒤에 넣으면 되겠다(push)는 생각이 듦.
+
+### 선생님 풀이
+
+- 선생님 풀이도 같은 방법이었는데 살짝 나랑 코드가 달랐다. 초기 배열 만들기나 while문에서 차이가 있었음
+
+```js
+function solution(n, k) {
+  let answer;
+  let queue = Array.from({ length: n }, (v, i) => i + 1);
+  while (queue.length) {
+    for (let i = 1; i < k; i++) queue.push(queue.shift());
+    queue.shift();
+    if (queue.length === 1) answer = queue.shift();
+  }
+  return answer;
+}
+
+console.log(solution(8, 3));
+```
