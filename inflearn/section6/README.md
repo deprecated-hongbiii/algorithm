@@ -107,6 +107,8 @@ console.log(solution(a));
 
 ## 6. 공주 구하기
 
+(21.08.07)
+
 - 어떻게 풀어야 할 지 감이 안 왔다. 처음에는 인덱스로 filter 할까 했지만, 탈락한 사람의 다음 사람부터 다시 시작되기 때문에 인덱스로는 거를 수가 없었다.
 - 섹션의 주제가 스택, 큐인데 뭔가 스택은 아닌 것 같아서 큐로 생각해보려 했지만 잘 생각이 안 났다.
 - 문득 맨 앞에 사람을 뽑아서(shift) 맨 뒤에 넣으면 되겠다(push)는 생각이 듦.
@@ -128,4 +130,34 @@ function solution(n, k) {
 }
 
 console.log(solution(8, 3));
+```
+
+<br>
+
+## 7. 교육과정설계
+
+(21.08.08)
+
+- includes를 이용하여 풀이도 가능하겠지만 queue(shift)만을 사용하여 풀어보았다.
+- shift는 시간복잡도 면에서 좋지 않을 텐데.. 코테에서 써도 되는 건지 잘 모르겠다.
+- QnA를 봤는데, 선생님 답변은 문제의 난이도마다 다르겠지만 shift만 써도 통과가 되도록 문제를 낼 것이고, 만약 shift 썼는데 시간 초과가 난다면 queue를 직접 구현하여 사용해야 할 것 같다고 하심
+
+### 선생님 풀이
+
+```js
+function solution(need, plan) {
+  let answer = 'YES';
+  let queue = need.split('');
+  for (let x of plan) {
+    if (queue.includes(x)) {
+      if (x !== queue.shift()) return 'NO';
+    }
+  }
+  if (queue.length > 0) return 'NO';
+  return answer;
+}
+
+let a = 'CBA';
+let b = 'CBDAGE';
+console.log(solution(a, b));
 ```
