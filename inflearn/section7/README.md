@@ -68,3 +68,41 @@ console.log(solution(arr));
 - for문을 두 번 돌면서 하나의 배열에 음수만, 양수만 이렇게 넣는 방법도 있음
 - 그런데 문제의 의도는 그게 아니라 정렬의 아이디어로 풀어보라는 것이었음
 - 버블 정렬의 아이디어로 왼쪽에 양수, 오른쪽에 음수가 있는 경우에만 자리를 바꿔주면 된다.
+
+<br>
+
+## 5. Least Recently Used
+
+(21.08.18)
+
+- 문제에 나온대로 충실하게 구현했음
+- 배열을 copy할 필요가 없었다!!!! copy하느라 시간복잡도 더 올라갔을듯;;
+- 딱히 시간복잡도에 대해 생각하지 않아도 됐던 문제였던 것 같다.
+- 선생님 풀이에서 삽입정렬 스타일로 푸는 방법이 있었는데, cache hit이면 해당 인덱스부터 `--` 하면서 반복문, `arr[i] = arr[i - 1]` 한 칸씩 땡긴다. 그냥 unshift 때리는 거랑 큰 차이는 없는 듯
+
+### 선생님 풀이
+
+```js
+function solution(size, arr) {
+  let answer = Array.from({ length: size }, () => 0);
+  arr.forEach((x) => {
+    let pos = -1;
+    for (let i = 0; i < size; i++) if (x === answer[i]) pos = i;
+    if (pos === -1) {
+      for (let i = size - 1; i >= 1; i--) {
+        answer[i] = answer[i - 1];
+      }
+    } else {
+      for (let i = pos; i >= 1; i--) {
+        answer[i] = answer[i - 1];
+      }
+    }
+    answer[0] = x;
+  });
+
+  return answer;
+}
+
+let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+console.log(solution(5, arr));
+```
