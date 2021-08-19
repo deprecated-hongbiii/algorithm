@@ -54,6 +54,20 @@ var helper = function (root, res) {
 
 <br>
 
+## 841. Keys And Rooms
+
+### 1st try
+
+- 도저히 모르겠어서 큐의 도움을 받아서 과정을 따라가 봄
+- while로 풀어도 되고 재귀로 풀어도 됨. 물론 BFS 풀이도 가능
+- 고려해야 할 점
+  - dfs가 최종적으로 리턴해주는 것이 무엇인지
+  - 어떤 경우에 dfs를 빠져나올 건지 (이 문제의 경우에는 이미 방문한 경우에 return)
+  - 인자로 어떤 걸 넣어줄 건지
+- 어렵다.. DFS..
+
+<br>
+
 ## 1047. Remove All Adjacent Duplicates In String
 
 | Try |   Date   | Time spent | Correctness | Performance |                             Code                              |
