@@ -57,18 +57,20 @@ function checkDistance(place) {
     const [r1, c1, r2, c2] = below2[i].flat(1);
 
     // 경우 1
-    if (r1 === r2) {
+    if (r1 === r2 && c1 !== c2) {
       const [min, max] = [Math.min(c1, c2), Math.max(c1, c2)];
       for (let j = min + 1; j < max; j++) {
         if (matrix[r1][j] === 'X') break;
+        if (j === max - 1) return 0;
       }
     }
 
     // 경우 2
-    if (c1 === c2) {
+    if (c1 === c2 && r1 !== r2) {
       const [min, max] = [Math.min(r1, r2), Math.max(r1, r2)];
       for (let j = min + 1; j < max; j++) {
         if (matrix[j][c1] === 'X') break;
+        if (j === max - 1) return 0;
       }
     }
 
@@ -76,14 +78,8 @@ function checkDistance(place) {
     if (r1 !== r2 && c1 !== c2) {
       // 일단 무조건 r1 < r2로 들어온다고 가정하고 풀겠음
       // 이 가정이 틀렸다면 combination 함수를 수정해야 함
-      if (c1 < c2) {
-        if (matrix[r1][c2] === 'X' && matrix[r2][c1] === 'X') continue;
-        return 0;
-      }
-      if (c1 > c2) {
-        if (matrix[r1][c2] === 'X' && matrix[r2][c1] === 'X') continue;
-        return 0;
-      }
+      if (matrix[r1][c2] === 'X' && matrix[r2][c1] === 'X') continue;
+      return 0;
     }
   }
 
