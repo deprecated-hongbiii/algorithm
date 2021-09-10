@@ -45,39 +45,36 @@ function checkDistance(place) {
     (combi) => combi.length === 2
   );
 
-  // couples에서 맨해튼거리가 2 이하인 좌표 쌍을 거르기
-  const below2 = couples.filter((couple) => {
-    const [r1, c1, r2, c2] = couple.flat(1);
-    return Math.abs(r1 - r2) + Math.abs(c1 - c2) <= 2 ? true : false;
-  });
+  // couples에서 맨해튼거리가 2인 좌표 쌍을 거르기
+  // 맨해튼 거리가 1인 게 있으면 더 볼 필요 없이 리턴 0
+  const distance2 = [];
 
-  // below2 반복 돌면서 사이에 파티션 있으면 넘어가고 없으면 바로 리턴 0
+  for (let i = 0; i < couples.length; i++) {
+    const [r1, c1, r2, c2] = couples[i].flat(1);
+    const manhattan = Math.abs(r1 - r2) + Math.abs(c1 - c2);
+    if (manhattan === 1) return 0;
+    if (manhattan === 2) distance2.push(couples[i]);
+  }
+
+  // distance2 반복 돌면서 사이에 파티션 있으면 넘어가고 없으면 바로 리턴 0
   // 반복문이 무사히 끝나면 마지막에 리턴 1
-  for (let i = 0; i < below2.length; i++) {
-    const [r1, c1, r2, c2] = below2[i].flat(1);
+  for (let i = 0; i < distance2.length; i++) {
+    const [r1, c1, r2, c2] = distance2[i].flat(1);
 
     // 경우 1
     if (r1 === r2 && c1 !== c2) {
       const [min, max] = [Math.min(c1, c2), Math.max(c1, c2)];
-      for (let j = min + 1; j < max; j++) {
-        if (matrix[r1][j] === 'X') break;
-        if (j === max - 1) return 0;
-      }
+      if (matrix[r1][min + 1] !== 'X') return 0;
     }
 
     // 경우 2
     if (c1 === c2 && r1 !== r2) {
       const [min, max] = [Math.min(r1, r2), Math.max(r1, r2)];
-      for (let j = min + 1; j < max; j++) {
-        if (matrix[j][c1] === 'X') break;
-        if (j === max - 1) return 0;
-      }
+      if (matrix[min + 1][c1] !== 'X') return 0;
     }
 
     // 경우 3
     if (r1 !== r2 && c1 !== c2) {
-      // 일단 무조건 r1 < r2로 들어온다고 가정하고 풀겠음
-      // 이 가정이 틀렸다면 combination 함수를 수정해야 함
       if (matrix[r1][c2] === 'X' && matrix[r2][c1] === 'X') continue;
       return 0;
     }
