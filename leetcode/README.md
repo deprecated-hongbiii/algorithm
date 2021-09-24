@@ -1,3 +1,68 @@
+# 🟢 Easy 🟢
+
+## 110. Balanced Binary Tree
+
+| Try |   Date   | Time spent | Correctness | Performance |                             Code                              |
+| :-: | :------: | :--------: | :---------: | :---------: | :-----------------------------------------------------------: |
+|  1  | 21-09-24 |     -      |    100%     |      -      | 🔗 [결과](https://leetcode.com/submissions/detail/560055293/) |
+
+### 1st try
+
+- height-balanced 라는 게 무슨 뜻인지 몰라서 해당 개념에 대해 간단히 학습했다. [참고한 블로그](https://javascript.plainenglish.io/leetcode-110-balanced-binary-tree-javascript-49ec9ddf9318)
+- 재귀로 쭉쭉 들어가서 leaf 노드부터 확인해나가야 해서 DFS로 풀어야겠다는 생각이 들었다.
+- 그러면 재귀 함수를 어떻게 짤까? `1. 재귀 탈출 조건` `2. return 값` `3. 정답 도출` 이렇게 나눠서 생각해봤다.
+  1. 재귀 탈출 조건
+     - 최초에 root 노드를 인자로 넣어 호출할 거고, 이진 트리이기 때문에 재귀로 node.left, node.right를 넣어 호출할 것이다.
+     - 즉, 인자로 들어온 node 값이 null 일 경우 리턴을 해준다.
+     - 이 때 height 계산을 해야 하기 때문에 리턴값은 1로 한다.
+     - 👆 이 부분 때문에 원래 leaf 노드라면 height 값이 1이 되어야 하지만 내 풀이에서는 2가 되었다.
+  2. return 값
+     - 재귀 함수가 리턴 되며 부모 노드로 올라가면서 height 값으로 비교하며 판단해야 하므로 리턴값은 height 값이어야 한다.
+     - 특정 노드의 height(`currHeight`)는 좌, 우 노드의 height 중 더 큰 값에 `+1` 한 값이다.
+  3. 정답 도출
+     - 좌, 우 노드를 넣어 재귀호출한 리턴값을 변수 `leftHeight`, `rightHeight`에 담아둔다.
+     - 만약 두 값 중 하나라도 false이면 그 단계의 dfs 함수는 false를 리턴한다.
+     - 값이 false가 되는 조건은, `leftHeight`와 `rightHeight`의 차이가 1 이상인 경우이다.
+     - 언젠가 한 번이라도 false가 나오게 되면 재귀함수가 콜스택에서 pop되면서 모두 각각의 함수가 모두 false를 리턴하게 되고, 최종적으로도 false를 리턴한다.
+     - 그렇지 않으면 (=== height-balanced라면) `currHeight`를 리턴값으로 갖는다. 즉 자연수를 리턴값으로 갖는다.
+     - 따라서 dfs 함수의 리턴값을 `result` 변수에 담아두고, 그 값이 있으면 true, 없으면 (false이면) false를 반환하도록 했다.
+
+### 다른 풀이
+
+- `check` 라는 플래그를 하나 만들어서, 좌우 노드의 height 차이가 1 이상이면 check를 false로 바꾼다.
+- dfs 내에서는 `check`가 false일 경우 리턴해주도록 한다.
+- 최종 리턴값은 `check`인데, dfs가 얼마나 많이 호출되었는지에 상관 없이 `check`는 dfs 바깥에 정의되어 있으므로 스코프체인으로 쭉쭉 가서 다들 똑같은 `check` 변수를 확인한다.
+
+<details>
+  <summary>큐의 풀이</summary>
+  <div markdown="1">
+
+```js
+var isBalanced = function (root) {
+  if (!root) return true;
+
+  let check = true;
+  function dfs(node) {
+    if (!node) return 0; // 비었을 경우 리턴
+    if (!check) return; // check가 false 얼리리턴
+
+    const leftNode = dfs(node.left);
+    const rightNode = dfs(node.right);
+    const diff = Math.abs(leftNode - rightNode);
+    if (diff > 1) return (check = false); // 균형 이진 트리가 아닐 경우 check를 false
+    return Math.max(leftNode, rightNode) + 1; // 높이 체크
+  }
+
+  dfs(root);
+  return check;
+};
+```
+
+  </div>
+</details>
+
+<br>
+
 ## 42. Trapping Rain Water
 
 | Try |   Date   | Time spent | Correctness | Performance |                             Code                              |
